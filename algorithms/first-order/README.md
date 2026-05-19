@@ -1,4 +1,4 @@
-# First Order C Algorithm
+# First Order Algorithm
 
 This algorithm implements a first-order object which can be used to model simple systems in control theory. It is defined by the following differential equation:
 

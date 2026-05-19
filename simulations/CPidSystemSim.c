@@ -45,7 +45,7 @@ void RunCyclic(CModelSimulation_ts *ctx, unsigned long currentTime)
 
 int main(void)
 {
-    simulation = CppModel_create("PidSystemSim", simulationTime * 1000, timeStep * 1000);
+    simulation = CppModel_create("CPidSystemSim", simulationTime * 1000, timeStep * 1000);
     CppModel_setRunStepFunction(simulation, RunCyclic);
 
     CppModel_Simulate(simulation);

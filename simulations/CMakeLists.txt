@@ -3,8 +3,8 @@ add_definitions(-DCPPHTTPLIB_OPENSSL_SUPPORT)
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../algorithms/first-order-c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../algorithms/pid-controller-c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../algorithms/first-order
+    ${CMAKE_CURRENT_SOURCE_DIR}/../algorithms/pid-controller
 )
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/lib)
 
@@ -55,8 +55,8 @@ endfunction()
 
 # ---- Tests ----
 
-add_simulation_test(PidSystemSim
-    PidSystemSim.c
-    ../algorithms/first-order-c/CFirstOrder.c
-    ../algorithms/pid-controller-c/CPid.c
+add_simulation_test(CPidSystemSim
+    CPidSystemSim.c
+    ../algorithms/first-order/CFirstOrder.c
+    ../algorithms/pid-controller/CPid.c
 )

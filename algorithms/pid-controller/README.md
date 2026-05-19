@@ -1,4 +1,4 @@
-# PID controller C algorithm
+# PID controller algorithm
 
 This algorithm implements a Proportional-Integral-Derivative (PID) controller in C. The PID controller is a widely used control loop feedback mechanism that calculates an error value as the difference between a desired setpoint and a measured process variable, and applies a correction based on proportional, integral, and derivative terms.
 
