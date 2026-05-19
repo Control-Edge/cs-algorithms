@@ -1,0 +1,83 @@
+name: Bug report
+description: Report a problem with an existing algorithm or with the build/simulation infrastructure.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug! Please fill in as much as you can — incomplete reports are much harder to act on.
+
+  - type: input
+    id: affected-area
+    attributes:
+      label: Affected algorithm or area
+      description: Which algorithm folder, simulation, or part of the build does this affect?
+      placeholder: "e.g. algorithms/pid-controller, simulations/CPidSystemSim, Windows MSVC build"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug — what you observed and what you expected.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Minimal reproducible steps. Include exact commands where possible.
+      placeholder: |
+        1. cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
+        2. cmake --build build
+        3. ctest --output-on-failure
+        4. ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Linux
+        - macOS (Intel)
+        - macOS (Apple Silicon)
+        - Windows (MSVC)
+        - Windows (MSYS2 UCRT64)
+        - Windows (MSYS2 CLANG64)
+        - Other (please specify in "Environment")
+    validations:
+      required: true
+
+  - type: input
+    id: compiler
+    attributes:
+      label: Compiler and version
+      description: Output of `cc --version` / `cl /?` etc.
+      placeholder: "e.g. gcc 12.3.0, AppleClang 15.0.0, MSVC 19.50.35730.0"
+    validations:
+      required: true
+
+  - type: input
+    id: cppmodel
+    attributes:
+      label: CppModel library version
+      description: Which CppModel release are you using? (Filename you downloaded, or "from CI default".)
+      placeholder: "e.g. CppModel-0.4.2"
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Other environment details
+      description: CMake version, anything unusual about your setup.
+      placeholder: "cmake --version output, any custom flags, etc."
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or CI link
+      description: Paste error output or link to a failing CI run. Use fenced code blocks for readability.
+      render: shell

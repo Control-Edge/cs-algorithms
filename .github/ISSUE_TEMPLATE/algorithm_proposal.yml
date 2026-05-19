@@ -1,0 +1,69 @@
+name: Algorithm proposal
+description: Propose a new algorithm to add to the library.
+labels: ["algorithm-proposal", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to propose a new algorithm before opening a PR. This lets us discuss scope, naming, and validation approach up front and avoids wasted implementation effort.
+
+  - type: input
+    id: name
+    attributes:
+      label: Algorithm name
+      description: Proposed folder name (kebab-case, e.g. `kalman-filter`, `low-pass-filter`).
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What does this algorithm do? What problem does it solve?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: languages
+    attributes:
+      label: Planned implementation(s)
+      multiple: true
+      options:
+        - C
+        - C++
+    validations:
+      required: true
+
+  - type: textarea
+    id: interface
+    attributes:
+      label: Public interface sketch
+      description: Rough sketch of the API — inputs, outputs, configuration, initialization.
+      placeholder: |
+        struct KalmanFilter { ... };
+        void kalman_init(KalmanFilter *kf, ...);
+        float kalman_step(KalmanFilter *kf, float measurement);
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Papers, textbooks, or implementations you'll base this on.
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation approach
+      description: How will the simulation under `simulations/` exercise this? What scenario proves it works?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Pre-flight
+      options:
+        - label: I've checked that no equivalent algorithm already exists under `algorithms/`.
+          required: true
+        - label: I've read [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) and understand the DCO sign-off requirement.
+          required: true

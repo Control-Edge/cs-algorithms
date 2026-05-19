@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or design discussion
+    url: https://discord.gg/p8X7EJdW
+    about: For open-ended questions, design discussions, or general help, please use Discord instead of opening an issue.
+  - name: CppModel framework support
+    url: https://cppmodel.com
+    about: Questions about the CppModel framework itself (not this algorithm library) belong upstream.
