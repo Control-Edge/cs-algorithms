@@ -3,8 +3,13 @@
 [![Linux CI](https://github.com/Control-Edge/cs-algorithms/actions/workflows/Linux%20CI.yml/badge.svg)](https://github.com/Control-Edge/cs-algorithms/actions/workflows/Linux%20CI.yml)
 [![macOS CI](https://github.com/Control-Edge/cs-algorithms/actions/workflows/macOS%20CI.yml/badge.svg)](https://github.com/Control-Edge/cs-algorithms/actions/workflows/macOS%20CI.yml)
 [![Windows CI](https://github.com/Control-Edge/cs-algorithms/actions/workflows/Windows%20CI.yml/badge.svg)](https://github.com/Control-Edge/cs-algorithms/actions/workflows/Windows%20CI.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![C++17](https://img.shields.io/badge/C%2B%2B-17-blue.svg)](https://en.cppreference.com/w/cpp/17)
+[![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/p8X7EJdW)
 
 Collection of C and C++ algorithms for control system and embedded software development. Includes reusable implementations for signal processing, filtering, numerical methods, control logic, diagnostics, and simulation utilities designed for real-time, resource-constrained, and industrial applications.
+
+This project uses CppModel framework for simulation and testing of the algorithms. CppModel provides a structured environment for defining inputs, outputs, and simulation parameters, allowing for comprehensive testing and validation of control system algorithms in a simulated environment. Check out more on [CppModel](https://cppmodel.com).
 
 ## How to use
 
