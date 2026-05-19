@@ -60,3 +60,9 @@ add_simulation_test(CPidSystemSim
     ../algorithms/first-order/CFirstOrder.c
     ../algorithms/pid-controller/CPid.c
 )
+
+add_simulation_test(CppPidSystemSim
+    CppPidSystemSim.cpp
+    ../algorithms/first-order/FirstOrder.cpp
+    ../algorithms/pid-controller/PIDController.cpp
+)
