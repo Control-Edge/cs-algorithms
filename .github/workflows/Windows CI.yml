@@ -30,6 +30,7 @@ jobs:
           install: >-
             base-devel
             git
+            unzip
             ${{ matrix.packages }}
       - uses: actions/checkout@v4
         with:
