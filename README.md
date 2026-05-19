@@ -1,4 +1,9 @@
 # Control System Algorithms
+
+[![Linux CI](https://github.com/Control-Edge/cs-algorithms/actions/workflows/Linux%20CI.yml/badge.svg)](https://github.com/Control-Edge/cs-algorithms/actions/workflows/Linux%20CI.yml)
+[![macOS CI](https://github.com/Control-Edge/cs-algorithms/actions/workflows/macOS%20CI.yml/badge.svg)](https://github.com/Control-Edge/cs-algorithms/actions/workflows/macOS%20CI.yml)
+[![Windows CI](https://github.com/Control-Edge/cs-algorithms/actions/workflows/Windows%20CI.yml/badge.svg)](https://github.com/Control-Edge/cs-algorithms/actions/workflows/Windows%20CI.yml)
+
 Collection of C and C++ algorithms for control system and embedded software development. Includes reusable implementations for signal processing, filtering, numerical methods, control logic, diagnostics, and simulation utilities designed for real-time, resource-constrained, and industrial applications.
 
 ## How to use
