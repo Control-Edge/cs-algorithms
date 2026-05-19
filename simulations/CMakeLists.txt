@@ -1,4 +1,3 @@
-enable_testing()
 
 add_definitions(-DCPPHTTPLIB_OPENSSL_SUPPORT)
 
