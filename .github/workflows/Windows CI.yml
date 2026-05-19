@@ -23,6 +23,16 @@ jobs:
       run:
         shell: msys2 {0}
     steps:
+      - name: Verify CppModel credentials are set
+        shell: bash
+        env:
+          CPPMODEL_USERNAME: ${{ secrets.CPPMODEL_USERNAME }}
+          CPPMODEL_PASSWORD: ${{ secrets.CPPMODEL_PASSWORD }}
+        run: |
+          if [ -z "$CPPMODEL_USERNAME" ] || [ -z "$CPPMODEL_PASSWORD" ]; then
+            echo "::error::CPPMODEL_USERNAME and CPPMODEL_PASSWORD secrets must be configured for this workflow"
+            exit 1
+          fi
       - uses: msys2/setup-msys2@v2
         with:
           msystem: ${{ matrix.sys }}
@@ -47,6 +57,7 @@ jobs:
       - name: Build
         run: cmake --build build --config RelWithDebInfo --parallel 10
       - name: Test
+        timeout-minutes: 5
         working-directory: build
         env:
           CPPMODEL_USERNAME: ${{ secrets.CPPMODEL_USERNAME }}
@@ -56,6 +67,15 @@ jobs:
   msvc:
     runs-on: windows-latest
     steps:
+      - name: Verify CppModel credentials are set
+        env:
+          CPPMODEL_USERNAME: ${{ secrets.CPPMODEL_USERNAME }}
+          CPPMODEL_PASSWORD: ${{ secrets.CPPMODEL_PASSWORD }}
+        run: |
+          if (-not $env:CPPMODEL_USERNAME -or -not $env:CPPMODEL_PASSWORD) {
+            Write-Error "CPPMODEL_USERNAME and CPPMODEL_PASSWORD secrets must be configured for this workflow"
+            exit 1
+          }
       - uses: actions/checkout@v4
         with:
           submodules: recursive
@@ -75,6 +95,7 @@ jobs:
       - name: Build
         run: cmake --build build --config RelWithDebInfo
       - name: Test
+        timeout-minutes: 5
         working-directory: build
         env:
           CPPMODEL_USERNAME: ${{ secrets.CPPMODEL_USERNAME }}

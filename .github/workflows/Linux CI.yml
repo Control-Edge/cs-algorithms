@@ -17,6 +17,15 @@ jobs:
         compiler: ['12']
     container: gcc:${{ matrix.compiler }}
     steps:
+      - name: Verify CppModel credentials are set
+        env:
+          CPPMODEL_USERNAME: ${{ secrets.CPPMODEL_USERNAME }}
+          CPPMODEL_PASSWORD: ${{ secrets.CPPMODEL_PASSWORD }}
+        run: |
+          if [ -z "$CPPMODEL_USERNAME" ] || [ -z "$CPPMODEL_PASSWORD" ]; then
+            echo "::error::CPPMODEL_USERNAME and CPPMODEL_PASSWORD secrets must be configured for this workflow"
+            exit 1
+          fi
       - uses: actions/checkout@v4
         with:
           submodules: recursive
@@ -37,6 +46,7 @@ jobs:
       - name: Build
         run: cmake --build build --config RelWithDebInfo --target all
       - name: Test
+        timeout-minutes: 5
         working-directory: build
         env:
           CPPMODEL_USERNAME: ${{ secrets.CPPMODEL_USERNAME }}
