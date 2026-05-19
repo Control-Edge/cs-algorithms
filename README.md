@@ -36,7 +36,7 @@ The repository is hosted on github.com and pipelines are set to use any test ena
 
 ## Contributing
 
-Contributions are welcome! Please fork the repository and submit a pull request with your improvements or new algorithms. Make sure to include documentation for any new code you add. Use simulations as test and demonstration of your algorithms.
+Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, conventions, and the sign-off requirement.
 
 ## Community and Support
 
