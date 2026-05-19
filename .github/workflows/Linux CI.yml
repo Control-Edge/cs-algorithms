@@ -25,6 +25,13 @@ jobs:
       - name: Get latest CMake and ninja
         uses: lukka/get-cmake@v3.27.7
 
+      - name: Download and extract CppModel libraries
+        run: |
+          curl -fsSL https://download.cppmodel.com/CppModel-0.4.2-Linux.tar.gz -o cppmodel.tar.gz
+          mkdir -p dependencies
+          tar -xzf cppmodel.tar.gz -C dependencies --strip-components=1
+          rm cppmodel.tar.gz
+
       - name: Run CMake
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
       - name: Build
