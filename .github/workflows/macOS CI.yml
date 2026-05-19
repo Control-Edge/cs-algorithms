@@ -1,0 +1,47 @@
+name: macOS CI
+
+on:
+  push:
+    branches: ["main"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-14
+            arch: arm64
+          - runner: macOS
+            runs-on: self-hosted
+            arch: x86_64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Install dependencies (OpenSSL, zlib, CMake, Ninja)
+        run: brew install cmake ninja openssl@3 zlib
+      - name: Download and extract CppModel libraries
+        run: |
+          curl -fsSL https://download.cppmodel.com/CppModel-0.4.2-macOS-${{ matrix.arch }}.tar.gz -o cppmodel.tar.gz
+          mkdir -p dependencies
+          tar -xzf cppmodel.tar.gz -C dependencies --strip-components=1
+          rm cppmodel.tar.gz
+      - name: Configure
+        run: |
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DOPENSSL_ROOT_DIR="$(brew --prefix openssl@3)"
+      - name: Build
+        run: cmake --build build --config RelWithDebInfo --parallel
+      - name: Test
+        working-directory: build
+        env:
+          CPPMODEL_USERNAME: ${{ secrets.CPPMODEL_USERNAME }}
+          CPPMODEL_PASSWORD: ${{ secrets.CPPMODEL_PASSWORD }}
+        run: ctest --output-on-failure
