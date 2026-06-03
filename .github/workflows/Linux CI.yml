@@ -9,12 +9,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ci_test_compilers_gcc:
+  ci_test_compilers:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        compiler: ['12', '16']
-    container: gcc:${{ matrix.compiler }}
+        include:
+          - lib: gcc12
+            container: gcc:12
+          - lib: gcc16
+            container: gcc:16
+          - lib: clang21
+            container: silkeh/clang:21
+    container: ${{ matrix.container }}
     steps:
       - name: Verify CppModel credentials are set
         env:
@@ -35,7 +42,7 @@ jobs:
 
       - name: Download and extract CppModel libraries
         run: |
-          curl -fsSL https://download.cppmodel.com/CppModel-latest-Linux-gcc${{ matrix.compiler }}.tar.gz -o cppmodel.tar.gz
+          curl -fsSL https://download.cppmodel.com/CppModel-latest-Linux-${{ matrix.lib }}.tar.gz -o cppmodel.tar.gz
           mkdir -p dependencies
           tar -xzf cppmodel.tar.gz -C dependencies --strip-components=1
           rm cppmodel.tar.gz

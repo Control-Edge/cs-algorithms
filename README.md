@@ -34,6 +34,20 @@ This project uses CppModel framework for simulation and testing of the algorithm
 
 The repository is hosted on github.com and pipelines are set to use any test enabled in simulations as a CI test. So any failure in the simulations will cause the pipeline to fail, ensuring that all algorithms are tested and validated.
 
+## Continuous Integration
+
+The following platform and compiler combinations are built and tested on every push to `main`:
+
+| Platform | Compiler | Environment |
+| --- | --- | --- |
+| Linux   | GCC 12     | `gcc:12` container |
+| Linux   | GCC 16     | `gcc:16` container |
+| Linux   | Clang 21   | `silkeh/clang:21` container |
+| macOS   | Apple Clang | `macos-14` (arm64) |
+| Windows | GCC (UCRT64) | MSYS2 UCRT64 |
+| Windows | Clang (CLANG64) | MSYS2 CLANG64 |
+| Windows | MSVC       | `windows-latest` |
+
 ## Contributing
 
 Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, conventions, and the sign-off requirement.
