@@ -16,9 +16,6 @@ jobs:
         include:
           - runner: macos-14
             arch: arm64
-          - runner: macOS
-            runs-on: self-hosted
-            arch: x86_64
     runs-on: ${{ matrix.runner }}
     steps:
       - name: Verify CppModel credentials are set
