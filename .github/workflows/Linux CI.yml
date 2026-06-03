@@ -32,8 +32,8 @@ jobs:
             echo "::error::CPPMODEL_USERNAME and CPPMODEL_PASSWORD secrets must be configured for this workflow"
             exit 1
           fi
-      - name: Install Git (required by checkout for submodules)
-        run: apt-get update && apt-get install -y git
+      - name: Install Git and curl (required by checkout and library download)
+        run: apt-get update && apt-get install -y git curl
       - uses: actions/checkout@v4
         with:
           submodules: recursive
