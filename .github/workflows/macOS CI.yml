@@ -10,13 +10,7 @@ concurrency:
 
 jobs:
   build:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - runner: macos-14
-            arch: arm64
-    runs-on: ${{ matrix.runner }}
+    runs-on: macos-14
     steps:
       - name: Verify CppModel credentials are set
         env:
@@ -34,7 +28,7 @@ jobs:
         run: brew install cmake ninja openssl@3 zlib
       - name: Download and extract CppModel libraries
         run: |
-          curl -fsSL https://download.cppmodel.com/CppModel-0.4.2-macOS-${{ matrix.arch }}.tar.gz -o cppmodel.tar.gz
+          curl -fsSL https://download.cppmodel.com/CppModel-latest-macOS-arm64.tar.gz -o cppmodel.tar.gz
           mkdir -p dependencies
           tar -xzf cppmodel.tar.gz -C dependencies --strip-components=1
           rm cppmodel.tar.gz
