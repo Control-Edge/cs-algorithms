@@ -13,8 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # compiler: ['10', '11', '12', 'latest']
-        compiler: ['12']
+        compiler: ['12', '16']
     container: gcc:${{ matrix.compiler }}
     steps:
       - name: Verify CppModel credentials are set
@@ -36,7 +35,7 @@ jobs:
 
       - name: Download and extract CppModel libraries
         run: |
-          curl -fsSL https://download.cppmodel.com/CppModel-latest-Linux-gcc16.tar.gz -o cppmodel.tar.gz
+          curl -fsSL https://download.cppmodel.com/CppModel-latest-Linux-gcc${{ matrix.compiler }}.tar.gz -o cppmodel.tar.gz
           mkdir -p dependencies
           tar -xzf cppmodel.tar.gz -C dependencies --strip-components=1
           rm cppmodel.tar.gz

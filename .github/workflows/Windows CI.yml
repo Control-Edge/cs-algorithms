@@ -50,8 +50,8 @@ jobs:
           curl -fsSL https://download.cppmodel.com/CppModel-latest-Windows-${{ matrix.sys }}.zip -o cppmodel.zip
           unzip -q cppmodel.zip
           mkdir -p dependencies
-          cp -r CppModel-latest-Windows-${{ matrix.sys }}/* dependencies/
-          rm -rf cppmodel.zip CppModel-latest-Windows-${{ matrix.sys }}
+          cp -r CppModel-*-Windows-${{ matrix.sys }}/* dependencies/
+          rm -rf cppmodel.zip CppModel-*-Windows-${{ matrix.sys }}
       - name: Configure
         run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
       - name: Build
@@ -88,7 +88,7 @@ jobs:
           Invoke-WebRequest -Uri https://download.cppmodel.com/CppModel-latest-Windows-MSVC.zip -OutFile cppmodel.zip
           Expand-Archive -Path cppmodel.zip -DestinationPath cppmodel_extracted
           New-Item -ItemType Directory -Force -Path dependencies | Out-Null
-          Copy-Item -Path "cppmodel_extracted\CppModel-latest-Windows-MSVC\*" -Destination dependencies -Recurse -Force
+          Copy-Item -Path "cppmodel_extracted\CppModel-*-Windows-MSVC\*" -Destination dependencies -Recurse -Force
           Remove-Item cppmodel.zip, cppmodel_extracted -Recurse -Force
       - name: Configure
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows-static
