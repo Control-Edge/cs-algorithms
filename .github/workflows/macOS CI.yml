@@ -2,7 +2,7 @@ name: macOS CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "feature/separateActions"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
@@ -27,11 +27,10 @@ jobs:
       - name: Install dependencies (OpenSSL, zlib, CMake, Ninja)
         run: brew install cmake ninja openssl@3 zlib
       - name: Download and extract CppModel libraries
-        run: |
-          curl -fsSL https://download.cppmodel.com/CppModel-latest-macOS-arm64.tar.gz -o cppmodel.tar.gz
-          mkdir -p dependencies
-          tar -xzf cppmodel.tar.gz -C dependencies --strip-components=1
-          rm cppmodel.tar.gz
+        uses: ./.github/actions/download-cppmodel
+        with:
+          os: macOS
+          variant: arm64
       - name: Configure
         run: |
           cmake -S . -B build -G Ninja \

@@ -1,0 +1,38 @@
+name: Download CppModel libraries
+description: Downloads and extracts the CppModel prebuilt libraries into dependencies/
+inputs:
+  os:
+    description: OS component of the CppModel release asset name (e.g. Linux, macOS, Windows)
+    required: true
+  variant:
+    description: Variant component of the CppModel release asset name (e.g. gcc12, arm64, MSVC)
+    required: true
+  dest:
+    description: Directory to extract the libraries into
+    required: false
+    default: dependencies
+runs:
+  using: composite
+  steps:
+    - name: Download and extract CppModel libraries (tar.gz)
+      if: runner.os != 'Windows'
+      shell: bash
+      run: |
+        curl -fsSL "https://download.cppmodel.com/CppModel-latest-${{ inputs.os }}-${{ inputs.variant }}.tar.gz" -o cppmodel.tar.gz
+        mkdir -p "${{ inputs.dest }}"
+        tar -xzf cppmodel.tar.gz -C "${{ inputs.dest }}" --strip-components=1
+        rm cppmodel.tar.gz
+
+    - name: Download and extract CppModel libraries (zip)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        $url = "https://download.cppmodel.com/CppModel-latest-${{ inputs.os }}-${{ inputs.variant }}.zip"
+        $archive = "cppmodel.zip"
+        $extractDir = "cppmodel_extracted"
+        Invoke-WebRequest -Uri $url -OutFile $archive
+        Expand-Archive -Path $archive -DestinationPath $extractDir
+        New-Item -ItemType Directory -Force -Path "${{ inputs.dest }}" | Out-Null
+        $inner = Get-ChildItem -Path $extractDir -Directory | Select-Object -First 1
+        Copy-Item -Path (Join-Path $inner.FullName '*') -Destination "${{ inputs.dest }}" -Recurse -Force
+        Remove-Item $archive, $extractDir -Recurse -Force
