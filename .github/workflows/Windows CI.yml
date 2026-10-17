@@ -16,9 +16,9 @@ jobs:
       matrix:
         include:
           - sys: UCRT64
-            packages: mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-ninja mingw-w64-ucrt-x86_64-zlib
+            packages: mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-ninja
           - sys: CLANG64
-            packages: mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-ninja mingw-w64-clang-x86_64-zlib
+            packages: mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-ninja
     defaults:
       run:
         shell: msys2 {0}
@@ -47,11 +47,11 @@ jobs:
           submodules: recursive
       - name: Download and extract CppModel libraries
         run: |
-          curl -fsSL https://download.cppmodel.com/CppModel-latest-Windows-${{ matrix.sys }}.zip -o cppmodel.zip
+          curl -fsSL https://download.cppmodel.com/CppModel-0.8.0-Windows-x64.zip -o cppmodel.zip
           unzip -q cppmodel.zip
           mkdir -p dependencies
-          cp -r CppModel-*-Windows-${{ matrix.sys }}/* dependencies/
-          rm -rf cppmodel.zip CppModel-*-Windows-${{ matrix.sys }}
+          cp -r CppModel-*-Windows-x64/* dependencies/
+          rm -rf cppmodel.zip CppModel-*-Windows-x64
       - name: Configure
         run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
       - name: Build
@@ -79,19 +79,15 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Install OpenSSL and zlib
-        run: |
-          choco install openssl -y
-          vcpkg install zlib:x64-windows-static
       - name: Download and extract CppModel libraries
         run: |
-          Invoke-WebRequest -Uri https://download.cppmodel.com/CppModel-latest-Windows-MSVC.zip -OutFile cppmodel.zip
+          Invoke-WebRequest -Uri https://download.cppmodel.com/CppModel-0.8.0-Windows-x64.zip -OutFile cppmodel.zip
           Expand-Archive -Path cppmodel.zip -DestinationPath cppmodel_extracted
           New-Item -ItemType Directory -Force -Path dependencies | Out-Null
-          Copy-Item -Path "cppmodel_extracted\CppModel-*-Windows-MSVC\*" -Destination dependencies -Recurse -Force
+          Copy-Item -Path "cppmodel_extracted\CppModel-*-Windows-x64\*" -Destination dependencies -Recurse -Force
           Remove-Item cppmodel.zip, cppmodel_extracted -Recurse -Force
       - name: Configure
-        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows-static
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
       - name: Build
         run: cmake --build build --config RelWithDebInfo
       - name: Test

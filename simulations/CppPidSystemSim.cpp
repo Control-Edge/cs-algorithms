@@ -15,8 +15,8 @@ public:
     ClosedLoopSimulation(std::string name, double duration, double dt)
     {
         this->name = name;
-        this->time = duration;
-        this->stepSize = dt;
+        this->time_ms = (unsigned long long)(duration * 1000.0);
+        this->stepSize_ms = (unsigned long long)(dt * 1000.0);
 
         double Kp = 2.7;
         double Ki = 2.6;
@@ -27,8 +27,9 @@ public:
         plant = new FirstOrderPlant(tau);
     }
 
-    void RunCyclic(double simulationTime) override
+    void RunCyclic(unsigned long long simulationTime_ms) override
     {
+        double simulationTime = simulationTime_ms / 1000.0;
         double dt = simulationTime - previousTime;
         previousTime = simulationTime;
 

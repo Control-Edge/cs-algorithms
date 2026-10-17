@@ -37,14 +37,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Install zlib and OpenSSL (required by IXWebSocket)
-        run: apt-get install -y zlib1g-dev libssl-dev
       - name: Get latest CMake and ninja
         uses: lukka/get-cmake@v3.27.7
 
       - name: Download and extract CppModel libraries
         run: |
-          curl -fsSL https://download.cppmodel.com/CppModel-latest-Linux-${{ matrix.lib }}.tar.gz -o cppmodel.tar.gz
+          curl -fsSL https://download.cppmodel.com/CppModel-0.8.0-Linux-x86_64.tar.gz -o cppmodel.tar.gz
           mkdir -p dependencies
           tar -xzf cppmodel.tar.gz -C dependencies --strip-components=1
           rm cppmodel.tar.gz
