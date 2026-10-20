@@ -47,7 +47,7 @@ jobs:
           submodules: recursive
       - name: Download and extract CppModel libraries
         run: |
-          curl -fsSL https://download.cppmodel.com/CppModel-0.8.0-Windows-x64.zip -o cppmodel.zip
+          curl -fsSL https://download.cppmodel.com/CppModel-0.9.1-Windows-x64.zip -o cppmodel.zip
           unzip -q cppmodel.zip
           mkdir -p dependencies
           cp -r CppModel-*-Windows-x64/* dependencies/
@@ -81,7 +81,7 @@ jobs:
           submodules: recursive
       - name: Download and extract CppModel libraries
         run: |
-          Invoke-WebRequest -Uri https://download.cppmodel.com/CppModel-0.8.0-Windows-x64.zip -OutFile cppmodel.zip
+          Invoke-WebRequest -Uri https://download.cppmodel.com/CppModel-0.9.1-Windows-x64.zip -OutFile cppmodel.zip
           Expand-Archive -Path cppmodel.zip -DestinationPath cppmodel_extracted
           New-Item -ItemType Directory -Force -Path dependencies | Out-Null
           Copy-Item -Path "cppmodel_extracted\CppModel-*-Windows-x64\*" -Destination dependencies -Recurse -Force
